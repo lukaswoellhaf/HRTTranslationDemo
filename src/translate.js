@@ -54,36 +54,50 @@ function main(params) {
       // found in the catch clause below
 
       // pick the language with the highest confidence, and send it back
-      const languageTranslator = new LanguageTranslatorV3({
-        version: '2018-05-01',
-        authenticator: new IamAuthenticator({
-          apiKey: 'RfDmJlM1xpNWR7NDzZbTD1nU-AoLnooDmk17YyAx3iOf',
-        }),
-        serviceUrl: 'https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/32cc503b-9be6-4c1c-9779-41c2f273a735',
+
+
+      // Start
+      resolve({
+        statusCode: 200,
+        body: {
+          translations: "<translated text>",
+          words: 1,
+          characters: 11,
+        },
+        headers: { 'Content-Type': 'application/json' }
+        // End
+
+
+        // const languageTranslator = new LanguageTranslatorV3({
+        //   version: '2018-05-01',
+        //   authenticator: new IamAuthenticator({
+        //     apiKey: 'RfDmJlM1xpNWR7NDzZbTD1nU-AoLnooDmk17YyAx3iOf',
+        //   }),
+        //   serviceUrl: 'https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/32cc503b-9be6-4c1c-9779-41c2f273a735',
       });
 
-      const translateParameter = {
-        text: 'hallo welt',
-        modelId: params.modelId,
-      }
+      // const translateParameter = {
+      //   text: 'hallo welt',
+      //   modelId: params.modelId,
+      // }
 
-      languageTranslator.translate(translateParameter)
-        .then(translationResult => {
-          // console.log(JSON.stringify(translationResult, null, 2));
+      // languageTranslator.translate(translateParameter)
+      //   .then(translationResult => {
+      //     // console.log(JSON.stringify(translationResult, null, 2));
 
-          resolve({
-            statusCode: 200,
-            body: {
-              translations: translationResult.result.translations[0].translation,
-              words: translationResult.result.word_count,
-              characters: translationResult.result.character_count,
-            },
-            headers: { 'Content-Type': 'application/json' }
-          });
-        })
-        .catch(err => {
-          console.log('error', err)
-        });
+      //     resolve({
+      //       statusCode: 200,
+      //       body: {
+      //         translations: translationResult.result.translations[0].translation,
+      //         words: translationResult.result.word_count,
+      //         characters: translationResult.result.character_count,
+      //       },
+      //       headers: { 'Content-Type': 'application/json' }
+      //     });
+      //   })
+      //   .catch(err => {
+      //     console.log('error', err)
+      //   });
 
 
     } catch (err) {
