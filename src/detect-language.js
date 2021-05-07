@@ -47,45 +47,45 @@ function main(params) {
       // found in the catch clause below
 
       // Start
-      resolve({
-        statusCode: 200,
-        body: {
-          text: params.text,
-          language: "<Best Language>",
-          confidence: 0.5,
-        },
-        headers: { 'Content-Type': 'application/json' }
-        // End
+      // resolve({
+      //   statusCode: 200,
+      //   body: {
+      //     text: params.text,
+      //     language: "<Best Language>",
+      //     confidence: 0.5,
+      //   },
+      //   headers: { 'Content-Type': 'application/json' }
+      //   End
 
 
-        // const languageTranslator = new LanguageTranslatorV3({
-        //     version: '2018-05-01',
-        //     authenticator: new IamAuthenticator({
-        //       apiKey: 'RfDmJlM1xpNWR7NDzZbTD1nU-AoLnooDmk17YyAx3iOf',
-        //     }),
-        //     serviceUrl: 'https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/32cc503b-9be6-4c1c-9779-41c2f273a735',
+      const languageTranslator = new LanguageTranslatorV3({
+        version: '2018-05-01', // TODO: Replace this with params.version
+        authenticator: new IamAuthenticator({
+          apikey: 'RfDmJlM1xpNWR7NDzZbTD1nU-AoLnooDmk17YyAx3iOf',
+        }),
+        serviceUrl: 'https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/32cc503b-9be6-4c1c-9779-41c2f273a735',
       });
 
-      // const identifyParameter = {
-      //   text: params.text,
-      // }
+      const identifyParameter = {
+        text: params.text,
+      }
 
-      // languageTranslator.identify(identifyParameter)
-      //   .then(identifiedLanguages => {
-      //     // console.log(JSON.stringify(identifiedLanguages, null, 2));
-      //     resolve({
-      //       statusCode: 200,
-      //       body: {
-      //         text: params.text,
-      //         language: identifiedLanguages.result.languages[0].language,
-      //         confidence: identifiedLanguages.result.languages[0].confidence,
-      //       },
-      //       headers: { 'Content-Type': 'application/json' }
-      //     });
-      //   })
-      //   .catch(err => {
-      //     console.log('error', err);
-      //   });
+      languageTranslator.identify(identifyParameter)
+        .then(identifiedLanguages => {
+          // console.log(JSON.stringify(identifiedLanguages, null, 2));
+          resolve({
+            statusCode: 200,
+            body: {
+              text: params.text,
+              language: identifiedLanguages.result.languages[0].language,
+              confidence: identifiedLanguages.result.languages[0].confidence,
+            },
+            headers: { 'Content-Type': 'application/json' }
+          });
+        })
+        .catch(err => {
+          console.log('error', err);
+        });
 
     } catch (err) {
       console.error('Error while initializing the AI service', err);
