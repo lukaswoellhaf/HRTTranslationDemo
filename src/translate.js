@@ -77,8 +77,11 @@ function main(params) {
       });
 
       const translateParameter = {
-        text: 'hallo welt',
-        modelId: params.modelId,
+        // TODO: Set a target language
+        text: "Hello, this is a test. This sentence is hard coded in the file translate.js",
+        // modelId: params.modelId,
+        source: "en",
+        target: "de"
       }
 
       languageTranslator.translate(translateParameter)

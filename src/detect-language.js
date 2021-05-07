@@ -67,8 +67,9 @@ function main(params) {
       });
 
       const identifyParameter = {
-        text: params.text,
-      }
+        // text: params.text,
+        text: "Hello, this is a test. This sentence is hard coded in the file detect-language.js"
+      };
 
       languageTranslator.identify(identifyParameter)
         .then(identifiedLanguages => {
@@ -76,7 +77,7 @@ function main(params) {
           resolve({
             statusCode: 200,
             body: {
-              text: params.text,
+              text: identifyParameter.text,
               language: identifiedLanguages.result.languages[0].language,
               confidence: identifiedLanguages.result.languages[0].confidence,
             },
