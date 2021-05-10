@@ -35,6 +35,9 @@ function main(params) {
   return new Promise(function (resolve, reject) {
 
     try {
+      
+      console.log("PARAMS:");
+      console.log(params);
 
       // *******TODO**********
       // - Call the language identification API of the translation service
@@ -68,7 +71,8 @@ function main(params) {
 
       const identifyParameter = {
         // text: params.text,
-        text: "Hello, this is a test. This sentence is hard coded in the file detect-language.js"
+        // text: "Hello, this is a test. This sentence is hard coded in the file detect-language.js"
+        text: params.text || params.defaultText
       };
 
       languageTranslator.identify(identifyParameter)
@@ -85,12 +89,13 @@ function main(params) {
           });
         })
         .catch(err => {
-          console.log('error', err);
+          console.error('Error while communicating with the AI service', err);
+      resolve(getTheErrorResponse('Error while communicating with the language-detecting service', defaultLanguage));
         });
 
     } catch (err) {
       console.error('Error while initializing the AI service', err);
-      resolve(getTheErrorResponse('Error while communicating with the language service', defaultLanguage));
+      resolve(getTheErrorResponse('Error while initializing the language-detecting service', defaultLanguage));
     }
   });
 }

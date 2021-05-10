@@ -42,6 +42,9 @@ function main(params) {
 
     try {
 
+      console.log("PARAMS:");
+      console.log(params);
+
       // *******TODO**********
       // - Call the language translation API of the translation service
       // see: https://cloud.ibm.com/apidocs/language-translator?code=node#translate
@@ -69,19 +72,25 @@ function main(params) {
 
 
       const languageTranslator = new LanguageTranslatorV3({
-        version: '2018-05-01',
+        version: params.version,
         authenticator: new IamAuthenticator({
-          apikey: 'RfDmJlM1xpNWR7NDzZbTD1nU-AoLnooDmk17YyAx3iOf',
+          apikey: params.apikey,
         }),
-        serviceUrl: 'https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/32cc503b-9be6-4c1c-9779-41c2f273a735',
+        serviceUrl: params.url,
       });
+
+      console.log("1");
+      console.log(params.body.language);
+      console.log("2");
+      console.log(params.body.language === "en" ? "de" : "en");
 
       const translateParameter = {
         // TODO: Set a target language
-        text: "Hello, this is a test. This sentence is hard coded in the file translate.js",
+        // text: "Hello, this is a test. This sentence is hard coded in the file translate.js",
+        text: params.body.text,
         // modelId: params.modelId,
-        source: "en",
-        target: "de"
+        source: params.body.language,
+        target: params.body.language === "en" ? "de" : "en"
       }
 
       languageTranslator.translate(translateParameter)
@@ -99,13 +108,13 @@ function main(params) {
           });
         })
         .catch(err => {
-          console.log('error', err)
+          console.error('Error while communicating with the AI service', err);
+      resolve(getTheErrorResponse('Error while communicating with the translation service', defaultLanguage));
         });
-
 
     } catch (err) {
       console.error('Error while initializing the AI service', err);
-      resolve(getTheErrorResponse('Error while communicating with the language service', defaultLanguage));
+      resolve(getTheErrorResponse('Error while initializing the translation service', defaultLanguage));
     }
   });
 }

@@ -1,5 +1,6 @@
 {
   "apikey": "RfDmJlM1xpNWR7NDzZbTD1nU-AoLnooDmk17YyAx3iOf",
   "version": "2018-05-01",
-  "url": "https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/32cc503b-9be6-4c1c-9779-41c2f273a735"
+  "url": "https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/32cc503b-9be6-4c1c-9779-41c2f273a735",
+  "defaultText": "Hello, this is a test. This sentence is the default text specified in 'ai-params.json'."
 }
